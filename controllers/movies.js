@@ -18,9 +18,26 @@ const getPartialMatch = (request, response) => {
     : response.status(404).send(`No results matching '${input}' have been found.`)
 }
 
+const addNewMovie = (request, response) => {
+  const {
+    title, directors, releaseDate, rating, runTime, genres,
+  } = request.body
+
+  if (!title || !directors || !releaseDate || !rating || !runTime || !genres) {
+    return response.status(400).send('Please make sure all fields are filled')
+  }
+
+  const newMovie = {
+    title, directors, releaseDate, rating, runTime, genres,
+  }
+
+  movies.push(newMovie)
+
+  return response.status(201).send(newMovie)
+}
 
 const noInput = (request, response) => {
   return response.sendStatus(404)
 }
 
-module.exports = { getAllMovies, getPartialMatch, noInput }
+module.exports = { getAllMovies, getPartialMatch, noInput, addNewMovie }

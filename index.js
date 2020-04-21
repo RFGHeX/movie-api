@@ -1,11 +1,14 @@
 const express = require('express')
-const { getAllMovies, getPartialMatch, noInput } = require('./controllers/movies')
+const bodyParser = require('body-parser')
+const { getAllMovies, getPartialMatch, noInput, addNewMovie } = require('./controllers/movies')
 
 const app = express()
 
 app.get('/movies', getAllMovies)
 
 app.get('/movies/:input', getPartialMatch)
+
+app.post('/', bodyParser.json(), addNewMovie)
 
 app.all('*', noInput)
 
